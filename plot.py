@@ -24,24 +24,37 @@ def plotar_bode(system, title, freqs=None):
     ax2.set_title('Diagrama de Fase')
     
     if freqs:
-        freq_min = min(freqs.values()) / 10
-        freq_max = max(freqs.values()) * 10
+        # Pega a primeira frequência para definir um range inicial razoável
+        first_freq = next(iter(freqs.values()))
+        freq_min = first_freq / 10
+        freq_max = first_freq * 10
+        
+        # Ajusta o range se houver múltiplas frequências
+        freq_values = [v for k, v in freqs.items() if k.lower() != 'q']
+        if freq_values:
+            freq_min = min(freq_values) / 10
+            freq_max = max(freq_values) * 10
+
         ax1.set_xlim(freq_min, freq_max)
         ax2.set_xlim(freq_min, freq_max)
 
     legend_labels = []
+    param_labels = []
     if freqs:
-        for key, w_val in freqs.items():
-            ax1.axvline(x=w_val, color='r', linestyle='--')
-            ax2.axvline(x=w_val, color='r', linestyle='--')
-            
-            y_marker_magnitude = np.interp(w_val, w_calc, ganho_linear)
-            y_marker_phase = np.interp(w_val, w_calc, phase)
-            ax1.plot(w_val, y_marker_magnitude, 'ro')
-            ax2.plot(w_val, y_marker_phase, 'ro')
-            
-            legend_labels.append(f"{key} = {w_val:.2f} rad/s")
-            ax1.text(w_val * 1.05, y_marker_magnitude, f'{key}', color='r', ha='left')
+        for key, val in freqs.items():
+            if key.lower() == 'q':
+                param_labels.append(f"Fator Q = {val:.2f}")
+            else:
+                ax1.axvline(x=val, color='r', linestyle='--')
+                ax2.axvline(x=val, color='r', linestyle='--')
+                
+                y_marker_magnitude = np.interp(val, w_calc, ganho_linear)
+                y_marker_phase = np.interp(val, w_calc, phase)
+                ax1.plot(val, y_marker_magnitude, 'ro')
+                ax2.plot(val, y_marker_phase, 'ro')
+                
+                legend_labels.append(f"{key} = {val:.2f} rad/s")
+                ax1.text(val * 1.05, y_marker_magnitude, f'{key}', color='r', ha='left')
     
     for ax in [ax1, ax2]:
         ax.spines['top'].set_visible(False)
@@ -52,8 +65,10 @@ def plotar_bode(system, title, freqs=None):
         else:
             ax.text(-0.02, 1.05, 'Fase', transform=ax.transAxes, ha='center', va='center', fontsize=12, color='black')
 
-    if legend_labels:
-        legend_text = "   |   ".join(legend_labels)
+    if legend_labels or param_labels:
+        # Junta as legendas de frequência e de parâmetros
+        full_legend_list = legend_labels + param_labels
+        legend_text = "   |   ".join(full_legend_list)
         fig.text(0.5, 0.03, legend_text, ha='center', fontsize=10, color='black',
                  bbox=dict(facecolor='lightgray', edgecolor='lightgray', boxstyle='square,pad=0.3'))
 

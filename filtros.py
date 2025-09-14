@@ -39,7 +39,7 @@ def filtro_passa_faixa(R, L, C):
     q_factor = w0 / bw
     wc1 = w0 * (np.sqrt(1 + (1/(2*q_factor))**2) - 1/(2*q_factor))
     wc2 = w0 * (np.sqrt(1 + (1/(2*q_factor))**2) + 1/(2*q_factor))
-    freqs_plot = {'w0': w0, 'wc1': wc1, 'wc2': wc2}
+    freqs_plot = {'w0': w0, 'wc1': wc1, 'wc2': wc2, 'Q': q_factor}
     num = [R/L, 0]
     den = [1, R/L, 1/(L*C)]
     print(f"Filtro Passa-Faixa com w0 = {w0:.2f} rad/s")
@@ -51,7 +51,7 @@ def filtro_rejeita_faixa(R, L, C):
     q_factor = w0 / bw
     wc1 = w0 * (np.sqrt(1 + (1/(2*q_factor))**2) - 1/(2*q_factor))
     wc2 = w0 * (np.sqrt(1 + (1/(2*q_factor))**2) + 1/(2*q_factor))
-    freqs_plot = {'w0': w0, 'wc1': wc1, 'wc2': wc2}
+    freqs_plot = {'w0': w0, 'wc1': wc1, 'wc2': wc2, 'Q': q_factor}
     num = [1, 0, 1/(L*C)]
     den = [1, R/L, 1/(L*C)]
     print(f"Filtro Rejeita-Faixa com w0 de rejeicao = {w0:.2f} rad/s")
