@@ -1,0 +1,11 @@
+Caso 1: Crossover para Subwoofer (Passa-Baixas)
+passa-baixas, 160, 10e-6
+
+Caso 2: Bloqueio de Componente DC (Passa-Altas)
+passa-altas, 8200, 1e-6
+
+Caso 3: Eliminacao de Ruido da Rede Eletrica (Rejeita-Faixa)
+rejeita-faixa, 100, 0.04, 1e-6
+
+Exemplo extra: Um filtro Passa-Faixa
+passa-faixa, 50, 0.01, 1e-5

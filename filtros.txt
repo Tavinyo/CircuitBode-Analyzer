@@ -1,0 +1,8 @@
+# Arquivo de configuracao para simulacao de filtros
+# Formato: tipo_filtro, R, C, [L]
+# tipo_filtro: passa-baixas, passa-altas, rejeita-faixa ou passa-faixa
+# Use notacao cientifica como '1e-6' para micro, '1e-3' para mili, etc.
+
+
+passa-baixas, 160, 10e-6
+
