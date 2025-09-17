@@ -19,12 +19,12 @@ def criar_interface():
         for widget in root.winfo_children():
             widget.destroy()
 
-        ajustar_tamanho_janela(400, 300)
+        ajustar_tamanho_janela(400, 400)
 
         ttk.Label(root, text="Simulador de Filtros", font=("Arial", 16, "bold")).pack(pady=20)
 
         # Botões que chamam as funções importadas
-        ttk.Button(root, text="Aplicações Reais", command=lambda: mostrar_aplicacoes_reais(root, ajustar_tamanho_janela, mostrar_tela_inicial)).pack(pady=20)
+        #ttk.Button(root, text="Aplicações Reais", command=lambda: mostrar_aplicacoes_reais(root, ajustar_tamanho_janela, mostrar_tela_inicial)).pack(pady=20)
         ttk.Button(root, text="Filtro Personalizado", command=lambda: mostrar_filtro_personalizado(root, ajustar_tamanho_janela, centralizar_janela, mostrar_tela_inicial)).pack(pady=20)
         ttk.Button(root, text="Fechar", command=root.destroy).pack(pady=20)
         
